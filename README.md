@@ -1,0 +1,2 @@
+# Economy
+Simple Economy Plugin
