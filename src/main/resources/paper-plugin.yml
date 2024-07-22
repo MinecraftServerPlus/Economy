@@ -1,0 +1,4 @@
+name: Economy
+version: '1.0-SNAPSHOT'
+main: io.github.vitelotte.economy.Economy
+api-version: '1.21'
