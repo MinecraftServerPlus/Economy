@@ -19,6 +19,7 @@ class Economy : JavaPlugin() {
     }
 
     override fun onDisable() {
+        this.saveConfig()
         logger.info("Plugin successfully disabled.")
     }
 

@@ -1,0 +1,6 @@
+currency:
+  symbol: "$"
+  render-format: "{symbol}{amount}"
+
+user:
+  initial-balance: 0
