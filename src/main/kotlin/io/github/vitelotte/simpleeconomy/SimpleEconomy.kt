@@ -1,12 +1,14 @@
 package io.github.vitelotte.economy
 
+import io.github.vitelotte.economy.managers.ConfigManager
 import org.bukkit.plugin.RegisteredServiceProvider
 import org.bukkit.plugin.java.JavaPlugin
 
 class Economy : JavaPlugin() {
 
     companion object {
-        lateinit var economy: Economy
+        lateinit var economy: net.milkbowl.vault.economy.Economy
+        lateinit var configManager: ConfigManager
     }
 
     override fun onEnable() {
