@@ -1,13 +1,14 @@
-package io.github.vitelotte.economy
+package io.github.vitelotte.simpleeconomy
 
-import io.github.vitelotte.economy.managers.ConfigManager
+import io.github.vitelotte.simpleeconomy.managers.ConfigManager
+import net.milkbowl.vault.economy.Economy
 import org.bukkit.plugin.RegisteredServiceProvider
 import org.bukkit.plugin.java.JavaPlugin
 
-class Economy : JavaPlugin() {
+class SimpleEconomy : JavaPlugin() {
 
     companion object {
-        lateinit var economy: net.milkbowl.vault.economy.Economy
+        lateinit var economy: Economy
         lateinit var configManager: ConfigManager
     }
 
@@ -17,6 +18,7 @@ class Economy : JavaPlugin() {
             server.pluginManager.disablePlugin(this)
             return
         }
+        setupConfig();
         logger.info("Plugin successfully enabled.")
     }
 
@@ -32,6 +34,12 @@ class Economy : JavaPlugin() {
 
         val registerServiceProvider: RegisteredServiceProvider<Economy> = server.servicesManager.getRegistration(Economy::class.java) ?: return false
         economy = registerServiceProvider.provider;
+        return true;
+    }
+
+    private fun setupConfig(): Boolean {
+        configManager = ConfigManager(this)
+        configManager.loadConfig()
         return true;
     }
 }
