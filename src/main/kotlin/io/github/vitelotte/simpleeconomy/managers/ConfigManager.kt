@@ -6,27 +6,35 @@ import kotlin.properties.Delegates
 
 class ConfigManager(private val plugin: JavaPlugin) {
     private lateinit var config: FileConfiguration
+
+    private val initialBalancePath = "system.initial-balance"
+    private val currencySymbolPath = "currency.symbol"
+    private val renderFormatPath = "currency.render-format"
+    private val defaultLanguagePath = "system.default-language"
+
     private var initialBalance by Delegates.notNull<Double>()
     private var currencySymbol by Delegates.notNull<String>()
     private var renderFormat by Delegates.notNull<String>()
+    private var defaultLanguage by Delegates.notNull<String>()
 
     fun loadConfig() {
         plugin.saveDefaultConfig()
         config = plugin.config
-        initialBalance = config.getDouble("user.initial-balance", 0.0)
-        currencySymbol = config.getString("currency.symbol", "$")!!
-        renderFormat = config.getString("currency.render-format", "{symbol}{amount}")!!
+        initialBalance = config.getDouble(initialBalancePath, 0.0)
+        currencySymbol = config.getString(currencySymbolPath, "$")!!
+        renderFormat = config.getString(renderFormatPath, "{symbol}{amount}")!!
+        defaultLanguage = config.getString(defaultLanguagePath, "ko-kr")!!
     }
 
     fun loadInitialBalance() {
-        initialBalance = config.getDouble("initial-balance", 0.0)
+        initialBalance = config.getDouble(initialBalancePath, 0.0)
     }
 
     fun fetchInitialBalance() {
-        config["initial-balance"] = initialBalance
+        config[initialBalancePath] = initialBalance
     }
     fun getInitialBalance(): Double {
-        return initialBalance;
+        return initialBalance
     }
 
     fun setInitialBalance(balance: Double) {
@@ -34,11 +42,11 @@ class ConfigManager(private val plugin: JavaPlugin) {
     }
 
     fun loadCurrencySymbol() {
-        currencySymbol = config.getString("currency.symbol", "$")!!
+        currencySymbol = config.getString(currencySymbolPath, "$")!!
     }
 
     fun fetchCurrencySymbol() {
-        config["currency.render-format"] = currencySymbol
+        config[currencySymbolPath] = currencySymbol
     }
 
     fun setCurrencySymbol(symbol: String) {
@@ -50,11 +58,11 @@ class ConfigManager(private val plugin: JavaPlugin) {
     }
 
     fun loadRenderFormat() {
-        renderFormat = config.getString("currency.render-format", "{symbol}{amount}")!!
+        renderFormat = config.getString(renderFormatPath, "{symbol}{amount}")!!
     }
 
     fun fetchRenderFormat() {
-        config["currency.render-format"] = renderFormat
+        config[renderFormatPath] = renderFormat
     }
 
     fun setRenderFormat(format: String) {
@@ -63,5 +71,21 @@ class ConfigManager(private val plugin: JavaPlugin) {
 
     fun getRenderFormat(): String {
         return renderFormat
+    }
+
+    fun loadDefaultLanguage() {
+        defaultLanguage = config.getString(defaultLanguagePath, "ko-kr")!!
+    }
+
+    fun fetchDefaultLanguage() {
+        config[defaultLanguagePath] = defaultLanguage
+    }
+
+    fun getDefaultLanguage(): String {
+        return defaultLanguage
+    }
+
+    fun setDefaultLanguage(language: String) {
+        defaultLanguage = language
     }
 }
