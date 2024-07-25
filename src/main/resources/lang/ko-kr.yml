@@ -1,0 +1,6 @@
+system:
+  prefix: "[Economy] "
+  suffix: ""
+
+message:
+  send-balance: "{victim}님은 현재 {rendered-balance}를 가지고 있습니다."
